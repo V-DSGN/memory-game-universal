@@ -2,29 +2,21 @@
     const BASE_PATH = SCRIPT_PATH.substring(0, SCRIPT_PATH.lastIndexOf('/') + 1);
 document.addEventListener('DOMContentLoaded', () => {
     
-    const timerStartElement = document.querySelector('.timer-start-text');
-    const timerDefaultElement = document.querySelector('.timer-default-text');
-    const timerWarningElement = document.querySelector('.timer-warning-text');
-    
-    const timerStartText = timerStartElement?.textContent.trim();
-    const timerDefaultText = timerDefaultElement?.textContent.trim();
-    const timerWarningText = timerWarningElement?.textContent.trim();
-    
-    const timerStartColor = getComputedStyle(
-      document.querySelector('.timer-start-text')
-    ).color;
-    
-    const timerDefaultColor = getComputedStyle(
-      document.querySelector('.timer-default-text')
-    ).color;
-    
-    const timerWarningColor = getComputedStyle(
-      document.querySelector('.timer-warning-text')
-    ).color;
-    
-    function renderTimerText(template, timer) {
-      return template.replace('{timer}', timer);
-    }
+const timerStartElement = document.querySelector('.timer-start-text');
+const timerDefaultElement = document.querySelector('.timer-default-text');
+const timerWarningElement = document.querySelector('.timer-warning-text');
+
+const timerStartText = timerStartElement.textContent.trim();
+const timerDefaultText = timerDefaultElement.textContent.trim();
+const timerWarningText = timerWarningElement.textContent.trim();
+
+const timerStartColor = getComputedStyle(timerStartElement).color;
+const timerDefaultColor = getComputedStyle(timerDefaultElement).color;
+const timerWarningColor = getComputedStyle(timerWarningElement).color;
+
+function renderTimerText(template, timer) {
+  return template.replaceAll('{timer}', timer);
+}
 
     
     const frontImage = document.querySelector('.front-source-image')?.src;
