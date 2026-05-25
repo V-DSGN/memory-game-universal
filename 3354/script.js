@@ -11,15 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerWarningText = timerWarningElement?.textContent.trim();
     
     const timerStartColor = getComputedStyle(
-      document.querySelector('.timer-start-color')
+      document.querySelector('.timer-start-text')
     ).color;
     
     const timerDefaultColor = getComputedStyle(
-      document.querySelector('.timer-default-color')
+      document.querySelector('.timer-default-text')
     ).color;
     
     const timerWarningColor = getComputedStyle(
-      document.querySelector('.timer-warning-color')
+      document.querySelector('.timer-warning-text')
     ).color;
     
     function renderTimerText(template, timer) {
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startTimer() {
-      timerDisplay.style.color = timerDefaultColor;
+      timerDisplay.style. = timerDefaultColor;
       timerDisplay.textContent = renderTimerText(timerDefaultText, timer);
     
       countdown = setInterval(() => {
