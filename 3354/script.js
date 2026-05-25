@@ -200,7 +200,7 @@ function renderTimerText(template, timer) {
       countdown = setInterval(() => {
         timer--;
     
-        if (timer <= 5) {
+        if (timer <= 10) {
           timerDisplay.style.color = timerWarningColor;
           timerDisplay.textContent = renderTimerText(timerWarningText, timer);
         } else {
