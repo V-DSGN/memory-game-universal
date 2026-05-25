@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         frontFace.className = 'front-face';
 
         const backFace = document.createElement('img');
-        backFace.src = BASE_PATH + card.img;  // Adjust path if necessary
+        backFace.src = card.img;  // Adjust path if necessary
         backFace.className = 'back-face';
 
         cardElement.appendChild(frontFace);
