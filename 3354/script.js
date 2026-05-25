@@ -1,52 +1,18 @@
     const SCRIPT_PATH = document.currentScript.src;
     const BASE_PATH = SCRIPT_PATH.substring(0, SCRIPT_PATH.lastIndexOf('/') + 1);
 document.addEventListener('DOMContentLoaded', () => {
-    const cardName = window.MEMORY_GAME_CONFIG.cardName;
-    const cardsArray = [
-  {
-    id: 1,
-    img: 'card-1-1.png', 
-    cardName: cardName[0]
-  },
-  {
-    id: 1,
-    img: 'card-1-2.png', 
-    cardName: cardName[1]
-  },
+    const frontImage = document.querySelector('.front-source-image')?.src;
 
-  {
-    id: 2,
-    img: 'card-2-1.png', 
-    cardName: cardName[2]
-  },
-  {
-    id: 2,
-    img: 'card-2-2.png', 
-    cardName: cardName[3]
-  },
+    const cardsArray = Array.from(document.querySelectorAll('.card-source')).map((el, index) => {
+    const cardImage = el.querySelector('.card-source-image');
+    const cardName = el.querySelector('.card-source-name');
 
-  {
-    id: 3,
-    img: 'card-3-1.png', 
-    cardName: cardName[4]
-  },
-  {
-    id: 3,
-    img: 'card-3-2.png', 
-    cardName: cardName[5]
-  },
-
-  {
-    id: 4,
-    img: 'card-4-1.png', 
-    cardName: cardName[6]
-  },
-  {
-    id: 4,
-    img: 'card-4-2.png', 
-    cardName: cardName[7]
-  }
-    ];
+    return {
+    id: el.dataset.cardId || index + 1,
+    img: cardImage?.src,
+    cardName: cardName?.textContent.trim()
+  };
+});
     const gameContainer = document.getElementById('game-container');
     const timerDisplay = document.getElementById('timer');
     const retryButton = document.getElementById('retryButton');
@@ -82,24 +48,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createCard(card) {
-        const cardElement = document.createElement('div');
-        cardElement.classList.add('card');
-        cardElement.dataset.id = card.id;
-        cardElement.dataset.name = card.cardName;
+  const cardElement = document.createElement('div');
 
-        const frontFace = document.createElement('img');
-        frontFace.src = BASE_PATH + 'logo.png';  // Adjust path if necessary
-        frontFace.className = 'front-face';
+  cardElement.classList.add('card');
+  cardElement.dataset.id = card.id;
+  cardElement.dataset.name = card.cardName;
 
-        const backFace = document.createElement('img');
-        backFace.src = BASE_PATH + card.img;  // Adjust path if necessary
-        backFace.className = 'back-face';
+  const frontFace = document.createElement('img');
+  frontFace.src = frontImage;
+  frontFace.alt = 'Card front';
+  frontFace.className = 'front-face';
 
-        cardElement.appendChild(frontFace);
-        cardElement.appendChild(backFace);
-        cardElement.addEventListener('click', flipCard);
-        return cardElement;
-    }
+  const backFace = document.createElement('img');
+  backFace.src = card.img;
+  backFace.alt = card.cardName;
+  backFace.className = 'back-face';
+
+  cardElement.appendChild(frontFace);
+  cardElement.appendChild(backFace);
+
+  cardElement.addEventListener('click', flipCard);
+
+  return cardElement;
+}
 
     function flipCard() {
         if (lockBoard) return;
