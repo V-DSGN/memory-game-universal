@@ -1,6 +1,32 @@
     const SCRIPT_PATH = document.currentScript.src;
     const BASE_PATH = SCRIPT_PATH.substring(0, SCRIPT_PATH.lastIndexOf('/') + 1);
 document.addEventListener('DOMContentLoaded', () => {
+    
+    const timerStartElement = document.querySelector('.timer-start-text');
+    const timerDefaultElement = document.querySelector('.timer-default-text');
+    const timerWarningElement = document.querySelector('.timer-warning-text');
+    
+    const timerStartText = timerStartElement?.textContent.trim();
+    const timerDefaultText = timerDefaultElement?.textContent.trim();
+    const timerWarningText = timerWarningElement?.textContent.trim();
+    
+    const timerStartColor = getComputedStyle(
+      document.querySelector('.timer-start-color')
+    ).color;
+    
+    const timerDefaultColor = getComputedStyle(
+      document.querySelector('.timer-default-color')
+    ).color;
+    
+    const timerWarningColor = getComputedStyle(
+      document.querySelector('.timer-warning-color')
+    ).color;
+    
+    function renderTimerText(template, timer) {
+      return template.replace('{timer}', timer);
+    }
+
+    
     const frontImage = document.querySelector('.front-source-image')?.src;
 
     const cardsArray = Array.from(document.querySelectorAll('.card-source')).map((el, index) => {
@@ -176,24 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startTimer() {
-        timerDisplay.textContent = `⏱️ Time left: ${timer} seconds`;
-        countdown = setInterval(() => {
-            timer--;
-            
-
-            if (timer <= 5) {
-                timerDisplay.style.color = 'red';
-                timerDisplay.textContent = `⚠️ Time left: ${timer} seconds`;
-            } else {
-                timerDisplay.style.color = '#8F2222';
-                timerDisplay.textContent = `⏱️ Time left: ${timer} seconds`;
-            }
-
-            if (timer === 0) {
-                clearInterval(countdown);
-                showGameOverModal();
-            }
-        }, 1000);
+      timerDisplay.style.color = timerDefaultColor;
+      timerDisplay.textContent = renderTimerText(timerDefaultText, timer);
+    
+      countdown = setInterval(() => {
+        timer--;
+    
+        if (timer <= 5) {
+          timerDisplay.style.color = timerWarningColor;
+          timerDisplay.textContent = renderTimerText(timerWarningText, timer);
+        } else {
+          timerDisplay.style.color = timerDefaultColor;
+          timerDisplay.textContent = renderTimerText(timerDefaultText, timer);
+        }
+    
+        if (timer === 0) {
+          clearInterval(countdown);
+          showGameOverModal();
+        }
+      }, 1000);
     }
 
     function resetGame() {
@@ -201,11 +228,10 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffle(cardsArray);
         cardsArray.forEach(card => gameContainer.appendChild(createCard(card)));
 
-
-
         timer = 20;
-        timerDisplay.textContent = `Turn a card to start! ⏱️ You've got ${timer} seconds!`;
-        timerDisplay.style.color = '#8F2222';
+        
+        timerDisplay.textContent = renderTimerText(timerStartText, timer);
+        timerDisplay.style.color = timerStartColor;
 
         matchesCount = 0;
         gameStarted = false;
@@ -255,4 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
     shuffle(cardsArray);
     cardsArray.forEach(card => gameContainer.appendChild(createCard(card)));
+    timerDisplay.textContent = renderTimerText(timerStartText, timer);
+    timerDisplay.style.color = timerStartColor;
 });
