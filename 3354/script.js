@@ -194,7 +194,7 @@ function renderTimerText(template, timer) {
     }
 
     function startTimer() {
-      timerDisplay.style. = timerDefaultColor;
+      timerDisplay.style.color = timerDefaultColor;
       timerDisplay.textContent = renderTimerText(timerDefaultText, timer);
     
       countdown = setInterval(() => {
