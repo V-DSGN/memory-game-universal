@@ -48,11 +48,13 @@ function renderTimerText(template, timer) {
         debugButtonGameOver.addEventListener('click', showGameOverModal);
     }
 
-
+    const timerConfig = document.querySelector('.timer-config');
+    const timerDuration = Number(timerConfig.dataset.timerDuration);
+    
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
-    let timer = 20;
+    let timer = timerDuration;
     let countdown;
     let gameStarted = false;
     let matchesCount = 0;
@@ -220,7 +222,7 @@ function renderTimerText(template, timer) {
         shuffle(cardsArray);
         cardsArray.forEach(card => gameContainer.appendChild(createCard(card)));
 
-        timer = 20;
+        timer = timerDuration;
         
         timerDisplay.textContent = renderTimerText(timerStartText, timer);
         timerDisplay.style.color = timerStartColor;
