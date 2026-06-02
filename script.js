@@ -14,6 +14,26 @@ const timerStartColor = getComputedStyle(timerStartElement).color;
 const timerDefaultColor = getComputedStyle(timerDefaultElement).color;
 const timerWarningColor = getComputedStyle(timerWarningElement).color;
 
+const matchConfettiEmojisText = document
+  .querySelector('.match-confetti-emojis')
+  .textContent
+  .trim();
+
+const winConfettiEmojisText = document
+  .querySelector('.win-confetti-emojis')
+  .textContent
+  .trim();
+
+function parseEmojiList(text) {
+  return text
+    .split(',')
+    .map((emoji) => emoji.trim())
+    .filter(Boolean);
+}
+
+const matchConfettiEmojis = parseEmojiList(matchConfettiEmojisText);
+const winConfettiEmojis = parseEmojiList(winConfettiEmojisText);
+
 function renderTimerText(template, timer) {
   return template.replaceAll('{timer}', timer);
 }
@@ -147,7 +167,7 @@ function renderTimerText(template, timer) {
                
 
         jsConfetti.addConfetti({
-            emojis: ['✅',''],
+            emojis: matchConfettiEmojis,
             emojiSize: 40
         });
     }
@@ -267,7 +287,7 @@ function renderTimerText(template, timer) {
             }
     
             jsConfetti.addConfetti({
-                emojis: ['🍕','🏆', '⭐'],
+                emojis: winConfettiEmojis,
                 emojiSize: 100
             });
         }, 2000);
