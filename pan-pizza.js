@@ -15,10 +15,21 @@ const CAPTION = {
   paddingTop: 24,         // px — headroom the transparent part of the gradient stretches over
   paddingSide: 10,        // px — left and right padding
   paddingBottom: 8,       // px — gap from the bottom edge of the card
-  lineHeight: 1.2         // line height
+  lineHeight: 1.2,        // line height
+  bottomRadius: 14        // px — rounding of the two bottom corners, fixed
+                          // regardless of how tall the plate grows
+                          // (null — leave whatever your CSS sets)
 };
 
 function injectCaptionStyles() {
+  /* Bottom corners get a fixed radius in px, so the rounding stays the same
+     whether the plate is one line tall or three. Set CAPTION.bottomRadius to
+     null to leave the page's own CSS in charge instead. */
+  const radius = typeof CAPTION.bottomRadius === 'number'
+    ? `border-bottom-left-radius: ${CAPTION.bottomRadius}px !important;
+       border-bottom-right-radius: ${CAPTION.bottomRadius}px !important;`
+    : '';
+
   const css = `
     .card[data-label]::after,
     .card[data-label]::before {
@@ -61,9 +72,7 @@ function injectCaptionStyles() {
         rgba(0, 0, 0, ${CAPTION.fadeBottom}) 100%
       ) !important;
 
-      /* inherit the card's rounding so the plate's corners don't stick out */
-      border-bottom-left-radius: inherit !important;
-      border-bottom-right-radius: inherit !important;
+      ${radius}
     }
   `;
 
