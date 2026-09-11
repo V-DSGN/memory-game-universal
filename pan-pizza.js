@@ -10,8 +10,8 @@ const CAPTION = {
   badgeIncorrect: '❌',   // badge above the text on a miss
   maxLines: 3,            // max lines of the caption (0 — unlimited, plate grows with the text)
   fadeStart: 0,           // gradient opacity at the top: 0 = fully transparent
-  fadeMiddle: 0.35,       // gradient opacity halfway down the plate
-  fadeBottom: 0.8,        // gradient opacity at the very bottom (0.8 = 80%, not solid black)
+  fadeMiddle: 0.18,       // gradient opacity halfway down the plate
+  fadeBottom: 0.55,       // gradient opacity at the very bottom (0.55 = 55%, well short of black)
   paddingTop: 24,         // px — headroom the transparent part of the gradient stretches over
   paddingSide: 10,        // px — left and right padding
   paddingBottom: 8,       // px — gap from the bottom edge of the card
