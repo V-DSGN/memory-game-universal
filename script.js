@@ -1,6 +1,6 @@
     const SCRIPT_PATH = document.currentScript.src;
     const BASE_PATH = SCRIPT_PATH.substring(0, SCRIPT_PATH.lastIndexOf('/') + 1);
-document.addEventListener('DOMContentLoaded', () => {
+function initGame() {
     
 const timerStartElement = document.querySelector('.timer-start-text');
 const timerDefaultElement = document.querySelector('.timer-default-text');
@@ -297,4 +297,11 @@ function renderTimerText(template, timer) {
     cardsArray.forEach(card => gameContainer.appendChild(createCard(card)));
     timerDisplay.textContent = renderTimerText(timerStartText, timer);
     timerDisplay.style.color = timerStartColor;
-});
+}
+
+// Run the game whether the script loads before or after the page is parsed
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGame);
+} else {
+    initGame();
+}
